@@ -1,10 +1,14 @@
 FROM node:24-alpine AS deps
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.33.0
 
 WORKDIR /app
 
 COPY deps/ ./
+
+RUN pnpm config set fetch-retries 10 \
+  && pnpm config set fetch-retry-mintimeout 1000 \
+  && pnpm config set fetch-retry-maxtimeout 20000
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod
 

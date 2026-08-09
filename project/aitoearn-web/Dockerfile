@@ -4,13 +4,17 @@ ENV NODE_ENV=production
 
 RUN apk add --no-cache libc6-compat
 
-RUN corepack enable pnpm && corepack prepare pnpm@latest --activate
+RUN corepack enable pnpm && corepack prepare pnpm@10.33.0 --activate
 
 WORKDIR /app
 
 FROM base AS deps
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+RUN pnpm config set fetch-retries 10 \
+  && pnpm config set fetch-retry-mintimeout 1000 \
+  && pnpm config set fetch-retry-maxtimeout 20000
 
 RUN pnpm install --frozen-lockfile --prod=false
 

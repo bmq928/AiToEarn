@@ -24,7 +24,7 @@ function generateCodeVerifier(): string {
 function generateCodeChallenge(verifier: string): string {
   return createHash('sha256')
     .update(verifier)
-    .digest('base64url')
+    .digest('hex')
 }
 
 @Injectable()

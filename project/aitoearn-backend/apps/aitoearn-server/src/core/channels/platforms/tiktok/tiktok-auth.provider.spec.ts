@@ -7,7 +7,7 @@ vi.mock('./tiktok.service', () => ({
 
 function createProvider() {
   const tikTokService = {
-    generateAuthUrl: vi.fn(() => 'https://www.tiktok.com/v2/auth/authorize/'),
+    generateAuthUrl: vi.fn<(scopes: string[], state: string, codeChallenge?: string) => string>(),
     exchangeCode: vi.fn(),
     refreshAccessToken: vi.fn(),
     revokeAccessToken: vi.fn(),
@@ -33,6 +33,18 @@ function createProvider() {
 }
 
 describe('tiktok auth provider', () => {
+  it('generates a hex-encoded S256 code challenge for PKCE', async () => {
+    const { provider, tikTokService } = createProvider()
+
+    tikTokService.generateAuthUrl.mockImplementation((_scopes, _state, codeChallenge) => {
+      expect(codeChallenge).toMatch(/^[0-9a-f]{64}$/)
+      return 'https://www.tiktok.com/v2/auth/authorize/'
+    })
+
+    await provider.generateAuthUrl({ state: 'state-1' })
+    expect(tikTokService.generateAuthUrl).toHaveBeenCalledTimes(1)
+  })
+
   it('uses the authorized TikTok user as a single account profile with stats', async () => {
     const { provider, tikTokService } = createProvider()
 

@@ -111,8 +111,12 @@ services:
       "
 
   aitoearn-ai:
+    build:
+      context: ./project/aitoearn-backend/tmp/docker-context-aitoearn-ai
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: aitoearn-ai
     image: aitoearn/aitoearn-ai:latest
-    pull_policy: always
     container_name: aitoearn-ai
     restart: unless-stopped
     depends_on:
@@ -132,8 +136,12 @@ services:
       start_period: 60s
 
   aitoearn-server:
+    build:
+      context: ./project/aitoearn-backend/tmp/docker-context-aitoearn-server
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: aitoearn-server
     image: aitoearn/aitoearn-server:latest
-    pull_policy: always
     container_name: aitoearn-server
     restart: unless-stopped
     depends_on:
@@ -155,8 +163,10 @@ services:
       start_period: 60s
 
   aitoearn-web:
+    build:
+      context: ./project/aitoearn-web
+      dockerfile: Dockerfile
     image: aitoearn/aitoearn-web:latest
-    pull_policy: always
     container_name: aitoearn-web
     restart: unless-stopped
     depends_on:
