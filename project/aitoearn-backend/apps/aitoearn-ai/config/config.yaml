@@ -37,10 +37,10 @@ assets:
   secretAccessKey: rustfsadmin
   bucketName: aitoearn
   endpoint: http://rustfs.local:9000
-  cdnEndpoint: http://localhost:8080/oss
+  cdnEndpoint: http://nginx.ai-to-earn.orb.local/oss
   signExpires: 300
   forcePathStyle: true
-  publicEndpoint: http://localhost:9000
+  publicEndpoint: http://nginx.ai-to-earn.orb.local:9000
   provider: s3
 ai:
   models:
@@ -250,7 +250,6 @@ ai:
             - en-US: Input videos do not count toward tokens
               zh-CN: 输入视频免计算token
           channel: relay
-          retry: 1
           modes:
             - text2video
             - image2video
@@ -313,6 +312,7 @@ ai:
             resolution: 720p
             aspectRatio: 16:9
             duration: 6
+          retry: 1
         - name: seedance-2-beta
           description: Seedance 2.0 Beta
           tags:
@@ -323,7 +323,6 @@ ai:
             - en-US: Input videos do not count toward tokens
               zh-CN: 输入视频免计算token
           channel: relay
-          retry: 1
           modes:
             - text2video
             - image2video
@@ -385,6 +384,7 @@ ai:
             resolution: 720p
             aspectRatio: 16:9
             duration: 6
+          retry: 1
         - name: seedance-2-beta-1080p
           description: Seedance 2.0 Beta 1080p
           tags:
@@ -395,7 +395,6 @@ ai:
             - en-US: Input videos do not count toward tokens
               zh-CN: 输入视频免计算token
           channel: relay
-          retry: 1
           modes:
             - text2video
             - image2video
@@ -450,6 +449,7 @@ ai:
             resolution: 1080p
             aspectRatio: 16:9
             duration: 8
+          retry: 1
         - name: happyhorse-1.1
           description: HappyHorse 1.1
           tags: []
@@ -746,7 +746,7 @@ ai:
             duration: 8
   openai:
     apiKey: ""
-    baseUrl: https://aitoearn.ai/api/ai
+    baseUrl: https://api.openai.com/v1
     timeout: 300000
   volcengine:
     apiKey: ""

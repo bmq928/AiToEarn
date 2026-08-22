@@ -1,0 +1,10 @@
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY scripts/init-package.json ./package.json
+COPY scripts/init.mjs ./init.mjs
+
+RUN npm install --omit=dev 2>/dev/null
+
+CMD ["node", "init.mjs"]

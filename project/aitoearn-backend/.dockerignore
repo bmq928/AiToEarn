@@ -1,0 +1,10 @@
+node_modules
+dist
+tmp
+.git
+*.md
+vitest.workspace.ts
+eslint.config.mjs
+skills-lock.json
+CLAUDE.md
+AGENTS.md

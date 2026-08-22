@@ -38,7 +38,7 @@ assets:
   secretAccessKey: rustfsadmin
   bucketName: aitoearn
   endpoint: http://rustfs.local:9000
-  cdnEndpoint: http://localhost:8080/oss
+  cdnEndpoint: http://nginx/oss
   signExpires: 300
   forcePathStyle: true
   publicEndpoint: http://localhost:9000
@@ -56,13 +56,13 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/bilibili/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/bilibili/callback
     logoUrl: https://assets.aitoearn.ai/platforms/bilibili.svg
   douyin:
     status: hidden
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/douyin/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/douyin/callback
     logoUrl: https://assets.aitoearn.ai/platforms/douyin.svg
     scopes:
       - user.info.basic
@@ -78,7 +78,8 @@ channel:
     clientId: ""
     clientSecret: ""
     graphApiVersion: v25.0
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/facebook/callback
+    # redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/facebook/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/facebook/callback
     logoUrl: https://assets.aitoearn.ai/platforms/facebook.svg
     webhookVerifyToken: ""
     scopes:
@@ -86,14 +87,14 @@ channel:
       - pages_show_list
       - pages_manage_posts
       - pages_read_engagement
-      - pages_read_user_content
-      - pages_manage_engagement
-      - read_insights
+      # - pages_read_user_content
+      # - pages_manage_engagement
+      # - read_insights
   kwai:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/KWAI/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/KWAI/callback
     logoUrl: https://assets.aitoearn.ai/platforms/kwai.svg
     scopes:
       - user_info
@@ -104,7 +105,7 @@ channel:
     clientId: ""
     clientSecret: ""
     graphApiVersion: v25.0
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/instagram/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/instagram/callback
     logoUrl: https://assets.aitoearn.ai/platforms/instagram.svg
     webhookVerifyToken: ""
     scopes:
@@ -132,7 +133,7 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/pinterest/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/pinterest/callback
     logoUrl: https://assets.aitoearn.ai/platforms/pinterest.svg
     baseUrl: https://api.pinterest.com
     scopes:
@@ -151,7 +152,7 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/threads/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/threads/callback
     logoUrl: https://assets.aitoearn.ai/platforms/threads.svg
     scopes:
       - threads_basic
@@ -165,7 +166,8 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/tiktok/callback
+    # redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/tiktok/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/tiktok/callback
     logoUrl: https://assets.aitoearn.ai/platforms/tiktok.svg
     scopes:
       - user.info.basic
@@ -179,7 +181,7 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/twitter/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/twitter/callback
     logoUrl: https://assets.aitoearn.ai/platforms/twitter.svg
     scopes:
       - tweet.read
@@ -208,7 +210,8 @@ channel:
     status: available
     clientId: ""
     clientSecret: ""
-    redirectUri: https://localhost/api/v2/channels/accounts/auth/youtube/callback
+    # redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/youtube/callback
+    redirectUri: http://localhost:3000/api/v2/channels/accounts/auth/youtube/callback
     logoUrl: https://assets.aitoearn.ai/platforms/youtube.svg
     webhookVerifyToken: ""
     scopes:
@@ -216,7 +219,7 @@ channel:
       - https://www.googleapis.com/auth/youtube.upload
       - https://www.googleapis.com/auth/userinfo.profile
       - https://www.googleapis.com/auth/userinfo.email
-relay:
-  serverUrl: https://aitoearn.ai/api
-  apiKey: ""
-  callbackUrl: http://localhost:8080/api/v2/channels/relay/callback
+# relay:
+#   serverUrl: https://aitoearn.ai/api
+#   apiKey: ""
+#   callbackUrl: http://localhost:8080/api/v2/channels/relay/callback

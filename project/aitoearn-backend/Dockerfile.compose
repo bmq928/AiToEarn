@@ -1,0 +1,51 @@
+FROM node:24-alpine AS base
+
+RUN npm install -g pnpm@10.33.0
+
+WORKDIR /app
+
+FROM base AS deps
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY apps/aitoearn-server/package.json ./apps/aitoearn-server/
+COPY apps/aitoearn-ai/package.json ./apps/aitoearn-ai/
+COPY libs/ ./libs/
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+FROM base AS builder
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ARG APP_NAME
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+RUN npx nx build ${APP_NAME} --skip-nx-cache
+
+FROM base AS prod-deps
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY apps/aitoearn-server/package.json ./apps/aitoearn-server/
+COPY apps/aitoearn-ai/package.json ./apps/aitoearn-ai/
+COPY libs/ ./libs/
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod
+
+FROM node:24-alpine AS production
+
+ARG APP_NAME
+
+RUN apk add --no-cache curl ffmpeg
+RUN npm install -g pm2
+
+WORKDIR /app
+
+COPY --from=builder /app/dist/apps/${APP_NAME} ./apps/${APP_NAME}/
+COPY --from=builder /app/dist/libs/ ./libs/
+COPY apps/${APP_NAME}/config/config.yaml ./config.yaml
+COPY --from=prod-deps /app/node_modules ./node_modules/
+
+ENV NODE_ENV=production
+ENV APP_NAME=$APP_NAME
+
+CMD ["sh", "-c", "exec pm2-runtime start apps/${APP_NAME}/src/main.js --name ${APP_NAME} -- -c config.yaml"]
